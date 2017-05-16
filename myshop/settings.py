@@ -104,7 +104,7 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
         'NAME': 'shop',
         'USER': 'root',
-        'PASSWORD': 'wp1993524.',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306'
         }
