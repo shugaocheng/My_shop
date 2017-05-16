@@ -1,0 +1,8 @@
+{% extends "shop/account/account_base.html" %}
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+  <h1>Logged out</h1>
+  <p>你已经成功推出,点击此处进行<a href="{% url "login" %}">登录</a>.</p>
+{% endblock %}

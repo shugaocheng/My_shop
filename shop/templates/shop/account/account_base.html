@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{% static "css/base1.css" %}" rel="stylesheet">
+    </head>
+    <body>
+        <div id="header">
+            <span class="logo"><a href="/">什么值得买</a></span>
+            {% if request.user.is_authenticated %}
+            <ul>
+                <li {% if section == "index" %}class="selected"{% endif %}>
+                  <a href="{% url "shop:product_list" %}">首页</a>
+                </li>
+                <li {% if section == "people" %}class="selected"{% endif %}>
+                    <a href="#">圈子</a>
+                </li>
+            </ul>
+            {% endif %}
+            <span class="user">
+                {% if request.user.is_authenticated %}
+                    Hello {{ request.user.first_name }}
+                    <a href="{% url "account:logout1" %}">退出</a>
+                {% else %}
+                    <a href="{% url "account:login" %}">登录</a>
+                {% endif %}
+            </span>
+        </div>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+    Thank you
+{% endblock %}
+
+{% block content %}
+    <h1>历史订单</h1>
+{#    <div id="main" class="product-list">#}
+{#    <p>您的订单历史订单有:</p>#}
+{#    {% for order in order_detail %}#}
+{#        <p>订单编号:{{ order.order.id }}</p>#}
+{#    <p>商品名称:{{ order.product.name }}</p>#}
+{##}
+{#    <a href="{{ order.product.get_absolute_url }}">#}
+{#        <img src="{{ order.product.image.url }}" style="width: 350px; height: 360px;">#}
+{#    </a>#}
+{#    <p>价格:{{ order.price }}</p>#}
+{#    <p>数量:{{ order.quantity }}</p>#}
+{#    <p>收件人信息:{{ order.order.first_name }}</p>#}
+{#    {% endfor %}#}
+{#    </div>#}
+    <div class="row">
+  {% for order in order_detail %}
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <p>订单编号:{{ order.order.id }}</p>
+      <a href="{{ order.product.get_absolute_url }}">
+        <img src="{{ order.product.image.url }}" alt="..." style="width: 150px; height: 150px">
+      </a>
+      <div class="caption">
+        <h4>{{ order.product.name }}</h4>
+        <p>...</p>
+        <p><a href="{% url "orders:order_delete" order.order.id %}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-remove-sign"></span></a></p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

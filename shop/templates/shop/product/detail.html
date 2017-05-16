@@ -1,0 +1,37 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+{#    {% if category %}{{ category.title }}{% else %}购物比价商城{% endif %}#}
+    购物比价商城
+{% endblock %}
+
+{% block content %}
+    <div class="product-detail" xmlns="http://www.w3.org/1999/html">
+        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+        <h3>{{ product.name }}</h3>
+        <h2>商品类别:<a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+        <p class="price">￥:{{ product.price }}</p>
+        <p class="price">剩余:{% if product.available %}{{ product.stock }}件{% else %}暂时缺货{% endif %}</p>
+        <form action="{% url "shopping_cart:shopping_cart_add" product.id %}" method="post">
+            {{ shopping_cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="添加到购物车">
+        </form>
+        <h2 class="price">商品详情:</h2>{{ product.description|linebreaks }}
+
+        {% if recommended_products %}
+            <div class="recommendations">
+            <h3>买了该商品的用户也一同购买了以下商品:</h3>
+            {% for p in recommended_products %}
+            <div class="item">
+                <a href="{{ p.get_absolute_url }}">
+                    <img src="{% if p.image %}{{ p.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                </a>
+                <p><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></p>
+            </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

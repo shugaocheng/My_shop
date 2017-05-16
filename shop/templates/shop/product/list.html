@@ -1,0 +1,41 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %}
+{#    {% if category %}{{ category.name }}{% else %}全部商品{% endif %}#}
+    购物比价商城
+{% endblock %}
+
+{% block content %}
+    <div id="sidebar">
+        <h3>类别</h3>
+        <ul>
+            <li {% if not category %}class="selected"{% endif %}>
+                <a href="{% url "shop:product_list" %}">全部</a>
+            </li>
+        {% for c in categories %}
+            <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div id="main" class="product-list">
+        <h1>{% if category %}{{ category.name }}{% else %}全部商品{% endif %}</h1>
+        {% for product in products %}
+            <div class="item">
+                {% thumbnail product.image "500x500" crop="100%"  as pi %}
+                <a href="{{ product.get_absolute_url }}">
+{#                    <img src="{% if product.image %}{{ product.image.url }}#}
+{#                    {% else %}{% static "img/no_image.png" %}{% endif %}">#}
+                    <img src="{% if pi %}{{ pi.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" class="image-list" >
+                </a>
+                {% endthumbnail %}
+                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+                ￥:{{ product.price }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
